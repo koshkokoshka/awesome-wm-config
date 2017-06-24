@@ -11,8 +11,14 @@ end)
 
 -- Global key bindings
 root.keys(gears.table.join(
+    -- MOD + CTRL + Q
+    -- Quit awesome
     awful.key({ "Mod4", "Control" }, "q", awesome.quit),
+    -- MOD + CTRL + R
+    -- Restart awesome
     awful.key({ "Mod4", "Control" }, "r", awesome.restart),
+    -- MOD + RETURN
+    -- Open a terminal
     awful.key({ "Mod4" }, "Return", function() awful.spawn("xterm") end)))
 
 -- Make focus follow mouse
