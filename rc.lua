@@ -7,6 +7,10 @@ local awful = require("awful")
 local wibox = require("wibox")
 
 -- Create tag table for each screen
+local taglistbuttons = gears.table.join(
+    awful.button({ }, 1, function(t) t:view_only() end)
+)
+
 local tasklistbuttons = gears.table.join(
     -- LMB
     -- Focus on a client
@@ -25,12 +29,13 @@ local tasklistbuttons = gears.table.join(
 )
 
 awful.screen.connect_for_each_screen(function(s)
-    awful.tag({ "1" }, s, awful.layout.suit.spiral)
-
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.suit.spiral)
+    s.taglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglistbuttons)
     s.tasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklistbuttons)
     s.wibar = awful.wibar({ position = "top", screen = s })
     s.wibar:setup {
         layout = wibox.layout.align.horizontal,
+        s.taglist,
         s.tasklist
     }
 end)
