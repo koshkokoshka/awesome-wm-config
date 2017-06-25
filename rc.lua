@@ -30,7 +30,7 @@ local tasklistbuttons = gears.table.join(
 
 awful.screen.connect_for_each_screen(function(s)
     -- Tag list
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.suit.spiral)
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.suit.floating)
 
     -- Widgets
     awful.wibar({ position = "top", screen = s }):setup {
@@ -40,7 +40,7 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 
 -- Global key bindings
-root.keys(gears.table.join(
+globalkeys = gears.table.join(
     -- MOD + CTRL + Q
     -- Quit awesome
     awful.key({ "Mod4", "Control" }, "q", awesome.quit),
@@ -49,7 +49,33 @@ root.keys(gears.table.join(
     awful.key({ "Mod4", "Control" }, "r", awesome.restart),
     -- MOD + RETURN
     -- Open a terminal
-    awful.key({ "Mod4" }, "Return", function() awful.spawn("xterm") end)))
+    awful.key({ "Mod4" }, "Return", function() awful.spawn("xterm") end),
+    -- Focus
+    awful.key({ "Mod4" }, "Tab", function()
+        awful.client.focus.history.previous()
+        if client.focus then
+            client.focus:raise()
+        end
+    end))
+
+root.keys(globalkeys)
+
+clientkeys = gears.table.join(
+    awful.key({ "Ctrl" }, "w", function(c) c:kill() end))
+
+clientbuttons = gears.table.join(
+    awful.button({ }, 1, function(c) client.focus = c; c:raise() end),
+    awful.button({ "Mod4" }, 1, awful.mouse.client.move),
+    awful.button({ "Mod4" }, 3, awful.mouse.client.resize))
+
+-- Setup rules for appearing windows
+awful.rules.rules = {
+    { rule = { },
+      properties = {
+        focus = awful.client.focus.filter,
+        keys = clientkeys,
+        buttons = clientbuttons } }
+}
 
 -- Make focus follow mouse
 client.connect_signal("mouse::enter", function(c) client.focus = c end)
