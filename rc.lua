@@ -5,6 +5,11 @@ local gears = require("gears")
 local awful = require("awful")
 -- Widget and layout library
 local wibox = require("wibox")
+-- Theme handling library
+local beautiful = require("beautiful")
+
+-- Theming
+beautiful.init("~/.config/awesome/theme.lua")
 
 -- Wibar setup
 local taglistbuttons = gears.table.join(
