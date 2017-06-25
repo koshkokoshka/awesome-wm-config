@@ -34,6 +34,11 @@ local tasklistbuttons = gears.table.join(
     awful.button({ }, 2, function(c) c:kill() end))
 
 awful.screen.connect_for_each_screen(function(s)
+    -- Wallpaper
+    if awful.util.file_readable(beautiful.wallpaper) then
+        gears.wallpaper.maximized(beautiful.wallpaper, s, false)
+    end
+
     -- Tag list
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.suit.floating)
 

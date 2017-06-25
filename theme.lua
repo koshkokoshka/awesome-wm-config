@@ -1,5 +1,7 @@
 theme = {}
 
+theme.wallpaper = "~/.config/awesome/wallpaper.jpg"
+
 theme.bg_accent = "#222222"
 theme.fg_accent = "#FFFFFF"
 
