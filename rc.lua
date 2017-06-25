@@ -33,7 +33,7 @@ awful.screen.connect_for_each_screen(function(s)
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.suit.floating)
 
     -- Widgets
-    awful.wibar({ position = "top", screen = s }):setup {
+    awful.wibar({ position = "top", screen = s, ontop = true }):setup {
         layout = wibox.layout.align.horizontal,
         awful.widget.taglist(s, awful.widget.taglist.filter.all, taglistbuttons),
         awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklistbuttons) }
