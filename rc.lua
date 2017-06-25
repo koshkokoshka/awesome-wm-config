@@ -50,7 +50,8 @@ globalkeys = gears.table.join(
     -- MOD + RETURN
     -- Open a terminal
     awful.key({ "Mod4" }, "Return", function() awful.spawn("xterm") end),
-    -- Focus
+    -- MOD + TAB
+    -- Focus on the previous window
     awful.key({ "Mod4" }, "Tab", function()
         awful.client.focus.history.previous()
         if client.focus then
@@ -60,19 +61,24 @@ globalkeys = gears.table.join(
 
 root.keys(globalkeys)
 
+-- Client key bindings
 clientkeys = gears.table.join(
+    -- CTRL + W
+    -- Close the current window
     awful.key({ "Ctrl" }, "w", function(c)
         awful.client.focus.history.previous()
         c:kill()
     end))
 
+-- Client button bindings
 clientbuttons = gears.table.join(
     awful.button({ }, 1, function(c) client.focus = c; c:raise() end),
     awful.button({ "Mod4" }, 1, awful.mouse.client.move),
     awful.button({ "Mod4" }, 3, awful.mouse.client.resize))
 
--- Setup rules for appearing windows
+-- Window rules
 awful.rules.rules = {
+    -- Default rule
     { rule = { },
       properties = {
         placement = awful.placement.no_overlap + awful.placement.no_offscreen,
