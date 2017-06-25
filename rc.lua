@@ -27,7 +27,7 @@ globalkeys = gears.table.join(
 root.keys(globalkeys)
 
 clientkeys = gears.table.join(
-    awful.key({ "Mod4" }, "w", function(c) c:kill() end))
+    awful.key({ "Ctrl" }, "w", function(c) c:kill() end))
 
 clientbuttons = gears.table.join(
     awful.button({ }, 1, function(c) client.focus = c; c:raise() end),
