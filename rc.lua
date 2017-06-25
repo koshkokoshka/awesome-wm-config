@@ -6,10 +6,11 @@ local awful = require("awful")
 -- Widget and layout library
 local wibox = require("wibox")
 
--- Create tag table for each screen
+-- Wibar setup
 local taglistbuttons = gears.table.join(
-    awful.button({ }, 1, function(t) t:view_only() end)
-)
+    -- LMB
+    -- Switch to tag
+    awful.button({ }, 1, function(t) t:view_only() end))
 
 local tasklistbuttons = gears.table.join(
     -- LMB
@@ -19,25 +20,23 @@ local tasklistbuttons = gears.table.join(
             c.minimized = true
         else
             c.minimized = false
-            c:raise()
             client.focus = c;
+            c:raise()
         end
     end),
     -- MMB
     -- Close a client
-    awful.button({ }, 2, function(c) c:kill() end)
-)
+    awful.button({ }, 2, function(c) c:kill() end))
 
 awful.screen.connect_for_each_screen(function(s)
+    -- Tag list
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.suit.spiral)
-    s.taglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglistbuttons)
-    s.tasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklistbuttons)
-    s.wibar = awful.wibar({ position = "top", screen = s })
-    s.wibar:setup {
+
+    -- Widgets
+    awful.wibar({ position = "top", screen = s }):setup {
         layout = wibox.layout.align.horizontal,
-        s.taglist,
-        s.tasklist
-    }
+        awful.widget.taglist(s, awful.widget.taglist.filter.all, taglistbuttons),
+        awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklistbuttons) }
 end)
 
 -- Global key bindings
