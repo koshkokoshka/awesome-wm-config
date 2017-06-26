@@ -93,3 +93,7 @@ awful.rules.rules = {
 
 -- Make focus follow mouse
 client.connect_signal("mouse::enter", function(c) client.focus = c end)
+
+-- Change border color on focus/unfocus
+client.connect_signal("focus", function(c) c.border_color = beautiful.bg_focus end)
+client.connect_signal("unfocus", function(c) c.border_color = beautiful.bg_normal end)
