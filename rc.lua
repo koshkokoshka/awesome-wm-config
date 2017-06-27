@@ -6,6 +6,10 @@ local awful = require("awful")
 -- Widget and layout library
 local wibox = require("wibox")
 
+-- Variable definitions
+terminal = os.getenv("TERMINAL") or "xterm"
+modkey = "Mod4"
+
 -- Wibar setup
 local taglistbuttons = gears.table.join(
     -- LMB
@@ -43,16 +47,16 @@ end)
 globalkeys = gears.table.join(
     -- MOD + CTRL + Q
     -- Quit awesome
-    awful.key({ "Mod4", "Control" }, "q", awesome.quit),
+    awful.key({ modkey, "Control" }, "q", awesome.quit),
     -- MOD + CTRL + R
     -- Restart awesome
-    awful.key({ "Mod4", "Control" }, "r", awesome.restart),
+    awful.key({ modkey, "Control" }, "r", awesome.restart),
     -- MOD + RETURN
     -- Open a terminal
-    awful.key({ "Mod4" }, "Return", function() awful.spawn("xterm") end),
+    awful.key({ modkey }, "Return", function() awful.spawn(terminal) end),
     -- MOD + TAB
     -- Focus on the previous window
-    awful.key({ "Mod4" }, "Tab", function()
+    awful.key({ modkey }, "Tab", function()
         awful.client.focus.history.previous()
         if client.focus then
             client.focus:raise()
@@ -73,8 +77,8 @@ clientkeys = gears.table.join(
 -- Client button bindings
 clientbuttons = gears.table.join(
     awful.button({ }, 1, function(c) client.focus = c; c:raise() end),
-    awful.button({ "Mod4" }, 1, awful.mouse.client.move),
-    awful.button({ "Mod4" }, 3, awful.mouse.client.resize))
+    awful.button({ modkey }, 1, awful.mouse.client.move),
+    awful.button({ modkey }, 3, awful.mouse.client.resize))
 
 -- Window rules
 awful.rules.rules = {
