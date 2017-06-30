@@ -86,6 +86,7 @@ awful.rules.rules = {
     { rule = { },
       properties = {
         placement = awful.placement.no_overlap + awful.placement.no_offscreen,
+        border_width = 1,
         focus = awful.client.focus.filter,
         keys = clientkeys,
         buttons = clientbuttons } }
