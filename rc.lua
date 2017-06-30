@@ -69,7 +69,7 @@ root.keys(globalkeys)
 clientkeys = gears.table.join(
     -- CTRL + W
     -- Close the current window
-    awful.key({ "Ctrl" }, "w", function(c)
+    awful.key({ modkey }, "w", function(c)
         awful.client.focus.history.previous()
         c:kill()
     end))
