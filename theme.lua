@@ -11,4 +11,8 @@ theme.fg_normal = "#FFFFFF"
 theme.bg_focus = theme.bg_accent
 theme.fg_focus = theme.fg_accent
 
+theme.border_width = 1
+theme.border_focus = theme.bg_focus
+theme.border_normal = theme.bg_normal
+
 return theme

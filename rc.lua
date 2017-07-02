@@ -85,6 +85,8 @@ clientbuttons = gears.table.join(
 awful.rules.rules = {
     { rule = { },
       properties = {
+        border_width = beautiful.border_width,
+        border_color = beautiful.border_normal,
         placement = awful.placement.no_overlap + awful.placement.no_offscreen,
         focus = awful.client.focus.filter,
         keys = clientkeys,
@@ -95,5 +97,5 @@ awful.rules.rules = {
 client.connect_signal("mouse::enter", function(c) client.focus = c end)
 
 -- Change border color on focus/unfocus
-client.connect_signal("focus", function(c) c.border_color = beautiful.bg_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.bg_normal end)
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
