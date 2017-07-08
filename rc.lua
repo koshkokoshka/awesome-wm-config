@@ -119,7 +119,7 @@ launchermenu = awful.menu({
         { "TERMINAL", function() awful.util.spawn(terminal) end },
         { "AWESOME", {
             { "RESTART", awesome.restart },
-            { "QUIT", awesome.quit }, }
+            { "QUIT", function() awesome.quit() end } }
         } }
 })
 launcher = awful.widget.button({ image = beautiful.launcher_icon })
