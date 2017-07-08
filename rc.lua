@@ -13,7 +13,7 @@ local beautiful = require("beautiful")
 -- | Variable definitions | --------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
 -- Standard applications
-terminal = os.getenv("TERMINAL") or "xterm"
+terminal = os.getenv("TERMINAL") or "urxvt" or "xterm"
 
 -- Theming
 beautiful.init("~/.config/awesome/theme.lua")
