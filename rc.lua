@@ -134,11 +134,8 @@ awful.screen.connect_for_each_screen(function(s)
     end
     -- Add taglist
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.suit.floating)
-
-    -- Widgets
-    awful.wibar({ position = "top", screen = s, ontop = true }):setup {
     -- Add widgets
-    awful.wibar({ position = "top", screen = s }):setup {
+    awful.wibar({ position = "top", screen = s, ontop = true }):setup {
         layout = wibox.layout.align.horizontal,
         {
             layout = wibox.layout.align.horizontal,
