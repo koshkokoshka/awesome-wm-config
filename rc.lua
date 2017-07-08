@@ -7,11 +7,16 @@ local gears = require("gears")
 local awful = require("awful")
 -- Widget and layout library
 local wibox = require("wibox")
+-- Theme handling library
+local beautiful = require("beautiful")
 
 -- | Variable definitions | --------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
 -- Standard applications
 terminal = os.getenv("TERMINAL") or "xterm"
+
+-- Theming
+beautiful.init("~/.config/awesome/theme.lua")
 
 -- | Key bindings | ----------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
@@ -62,7 +67,6 @@ for i = 1, 9 do
     )
 end
 
-
 -- Client keys
 clientkeys = gears.table.join(
     -- CTRL + W
@@ -104,6 +108,10 @@ tasklistbuttons = gears.table.join(
 -- | Desktop environment setup | ---------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
 awful.screen.connect_for_each_screen(function(s)
+    -- Set wallpaper
+    if awful.util.file_readable(beautiful.wallpaper) then
+        gears.wallpaper.maximized(beautiful.wallpaper, s, false)
+    end
     -- Add taglist
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.suit.floating)
     -- Add widgets
@@ -113,6 +121,7 @@ awful.screen.connect_for_each_screen(function(s)
         awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklistbuttons) }
 end)
 
+-- Bind global hotkeys
 root.keys(globalkeys)
 
 -- | Window rules |-----------------------------------------------------------------------------------------------------
@@ -121,7 +130,8 @@ awful.rules.rules = {
     -- Default rule
     { rule = { },
       properties = {
-          border_width = 1,
+          border_width = beautiful.border_width,
+          border_color = beautiful.border_normal,
           placement = awful.placement.no_overlap + awful.placement.no_offscreen,
           focus = awful.client.focus.filter,
           keys = clientkeys,
@@ -132,3 +142,7 @@ awful.rules.rules = {
 ------------------------------------------------------------------------------------------------------------------------
 -- Make focus follow mouse
 client.connect_signal("mouse::enter", function(c) client.focus = c end)
+
+-- Change border color on focus/unfocus
+client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
