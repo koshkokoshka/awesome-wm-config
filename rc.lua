@@ -82,6 +82,13 @@ clientbuttons = gears.table.join(
     awful.button({ modkey }, 1, awful.mouse.client.move),
     awful.button({ modkey }, 3, awful.mouse.client.resize))
 
+-- Launcher
+launcherbuttons = gears.table.join(
+    -- LMB
+    -- Toggle launcher menu
+    awful.button({ }, 1, function() launchermenu:toggle({ coords = { x=0, y=0 } }) end)
+)
+
 -- Taglist
 taglistbuttons = gears.table.join(
     -- LMB
@@ -105,6 +112,19 @@ tasklistbuttons = gears.table.join(
     -- Close a client
     awful.button({ }, 2, function(c) c:kill() end))
 
+-- | Widgets | ---------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+launchermenu = awful.menu({
+    items = {
+        { "TERMINAL", function() awful.util.spawn(terminal) end },
+        { "AWESOME", {
+            { "RESTART", awesome.restart },
+            { "QUIT", awesome.quit }, }
+        } }
+})
+launcher = awful.widget.button({ image = beautiful.launcher_icon })
+launcher:buttons(launcherbuttons)
+
 -- | Desktop environment setup | ---------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
 awful.screen.connect_for_each_screen(function(s)
@@ -117,7 +137,11 @@ awful.screen.connect_for_each_screen(function(s)
     -- Add widgets
     awful.wibar({ position = "top", screen = s }):setup {
         layout = wibox.layout.align.horizontal,
-        awful.widget.taglist(s, awful.widget.taglist.filter.all, taglistbuttons),
+        {
+            layout = wibox.layout.align.horizontal,
+            launcher,
+            awful.widget.taglist(s, awful.widget.taglist.filter.all, taglistbuttons)
+        },
         awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklistbuttons) }
 end)
 

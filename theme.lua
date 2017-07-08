@@ -3,6 +3,8 @@ theme = {}
 theme.font = "Misc Tamsyn 8"
 theme.taglist_font = "Misc Tamsyn 7"
 
+theme.launcher_icon = "~/.config/awesome/icons/launcher.png"
+
 theme.wallpaper = "~/.config/awesome/wallpaper.jpg"
 
 theme.bg_accent = "#FF0066"
