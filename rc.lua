@@ -77,6 +77,12 @@ clientkeys = gears.table.join(
     awful.key({ modkey }, "w", function(c)
         awful.client.focus.history.previous()
         c:kill()
+    end),
+    -- CTRL + F
+    -- Toggle fullscreen mode
+    awful.key({ modkey }, "f", function(c)
+        c.maximized = not c.maximized
+        c:raise()
     end))
 
 -- Client buttons
