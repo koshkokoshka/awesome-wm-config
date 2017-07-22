@@ -34,6 +34,9 @@ globalkeys = gears.table.join(
     -- MOD + RETURN
     -- Open a terminal
     awful.key({ modkey }, "Return", function() awful.spawn(terminal) end),
+    -- MOD + R
+    -- Prompt
+    awful.key({ modkey }, "r", function() awful.screen.focused().prompt:run() end),
     -- MOD + TAB
     -- Focus on the previous window
     awful.key({ modkey }, "Tab", function()
@@ -134,7 +137,7 @@ awful.screen.connect_for_each_screen(function(s)
     end
     -- Add taglist
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.suit.floating)
-    -- Add widgets
+    -- Add topbar
     awful.wibar({ position = "top", screen = s, ontop = true }):setup {
         layout = wibox.layout.align.horizontal,
         {
@@ -143,6 +146,13 @@ awful.screen.connect_for_each_screen(function(s)
             awful.widget.taglist(s, awful.widget.taglist.filter.all, taglistbuttons)
         },
         awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklistbuttons) }
+    -- Add promptbox
+    s.prompt = awful.widget.prompt()
+    -- Add bottombar
+    awful.wibar({ position = "bottom", screen = s, ontop = true}):setup {
+        layout = wibox.layout.align.horizontal,
+        s.prompt
+    }
 end)
 
 -- Bind global hotkeys
